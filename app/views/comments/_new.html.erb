@@ -1,0 +1,5 @@
+<%= form_with model: [post, Comment.new ] do |form| %>
+  <%= form.text_area :message %>
+  <%= form.submit %>
+<% end %>
+
