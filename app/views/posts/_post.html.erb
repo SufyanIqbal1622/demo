@@ -4,14 +4,16 @@
     <%= post.title %>
   </p>
 
-  <p>
+  <p class="">
     <strong>Content:</strong>
-    <%= post.content %>
+    <span class="bg-dark"><%= post.content %> </span>
   </p>
 
   <p>
     <strong> Author:</strong>
     <%= post.user.name %>
   </p>
-
+  <p>
+    Published: <%= time_tag post.created_at, "data-local": "time-ago" %> <% if post.created_at != post.updated_at %>/ Updated: <%= time_tag post.updated_at, "data-local": "time-ago" %> <% end %>
+  </p>
 </div>

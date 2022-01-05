@@ -7,3 +7,6 @@ pin "@hotwired/stimulus-loading", to: "stimulus-loading.js", preload: true
 pin_all_from "app/javascript/controllers", under: "controllers"
 pin "bootstrap", to: "https://ga.jspm.io/npm:bootstrap@5.1.3/dist/js/bootstrap.esm.js"
 pin "@popperjs/core", to: "https://cdn.skypack.dev/@popperjs/core"
+pin "trix"
+pin "@rails/actiontext", to: "actiontext.js"
+pin "local-time" # @2.1.0
