@@ -1,5 +1,5 @@
-<div id="comments">
-    <%= render "comments/comment", collection: post.comments  %>
-    <%= render post.comments %>
+<div id="post_<%=post.id%>_comments">
+    <% post.comments.each do |comment| %>
+      <%= render "comments/comment", comment: comment %>
+    <% end %>
 </div>
-<%= render "comments/new", post: post %>

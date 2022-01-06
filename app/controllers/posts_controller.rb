@@ -20,13 +20,18 @@ class PostsController < ApplicationController
   end
 
   # POST /posts or /posts.json
-  def create  
+  def create
     @post = Post.new(post_params)
     @post.user_id = current_user.id
 
     respond_to do |format|
       if @post.save
-        format.html { redirect_to post_url(@post), notice: "Post was successfully created." }
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.append("posts", partial: "posts/show", locals: {post: @post} )
+          ]
+      end
+        format.html { render :show, status: :created, location: @post}
         format.json { render :show, status: :created, location: @post }
       else
         format.html { render :new, status: :unprocessable_entity }

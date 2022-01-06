@@ -1,5 +1,7 @@
-<%= form_with model: [post, Comment.new ] do |form| %>
-  <%= form.text_area :message %>
-  <%= form.submit %>
-<% end %>
-
+<div class="col-6 ml-5">
+  <%= form_with model: [post, Comment.new ] do |form| %>
+    <%= form.text_area :message, class:"form-control" %>
+    <%= form.hidden_field :post_id, value: "#{post.id}" %>
+    <%= form.submit class:"byn btn-primary" %>
+  <% end %>
+</div>

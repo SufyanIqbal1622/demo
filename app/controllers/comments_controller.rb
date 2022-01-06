@@ -4,14 +4,19 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @comment = Comment.new(comment_params)
-    @comment.user_id = current_user.id
-
+    comment = Comment.new(comment_params)
+    comment.user_id = current_user.id
     respond_to do |format|
-      if @comment.save
+      if comment.save
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.append("post_#{params[:post_id]}_comments", partial: "comments/comment", locals: {comment: comment} )
+          ]
+      end
+
         format.html { redirect_to post_url(comment.post), notice: "comment added" }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { redirect_to post_url(params[:post_id]), notice: "comment not added" }
       end
     end
 

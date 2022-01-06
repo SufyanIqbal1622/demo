@@ -1,5 +1,5 @@
-<div id="<%= dom_id(comment)%>">
-  <%=comment.message  %>- <%= time_tag comment.created_at, "data-local": "time-ago" %>
-
-
+<div id="<%= dom_id(comment)%>" class="table-primary col-6 mx-5">
+  <div >
+    <p class="align-items-between"> <span class="mx-5"><%=comment.message  %> -- <%= time_tag comment.created_at, "data-local": "time-ago" %></span> <span class="mx-3">by : <%= comment.user.name %></span></p>
+  </div>
 </div>
