@@ -1,37 +1,32 @@
 <%= turbo_frame_tag post do %>
-<div class="col-8 aligin-items-center mx-5 my-3" id="<%= dom_id post %>">
-  <div class="card">
-    <div class="card-header">
-       <strong><%= post.title %></strong>
+  <div class="col-8 aligin-items-center mx-5 my-3" id="<%= dom_id post %>">
+    <div class="card">
+      <div class="card-header">
+        <strong><%= post.title %></strong>
+      </div>
+      <div class="card-body">
+        <p class="">
+          <span class="bg-dark"><%= post.content %> </span>
+        </p>
+        <p>
+          <strong> Author:</strong>
+          <%= post.user.name %>
+        </p>
+
+        <strong> <%= pluralize post.comments.count, "comment" %></strong>
+        <p>
+          Published: <%= time_tag post.created_at, "data-local": "time-ago" %>
+          <% if post.created_at != post.updated_at %>/ Updated: <%= time_tag post.updated_at, "data-local": "time-ago" %>
+          <% end %>
+        </p>
+      </div>
+      <div class="card-footer d-flex ">
+        <%= link_to "Show this post", post , class:"btn btn-outline-success mx-2", type:"button" if request.parameters['action'] == "index" %>
+        <%= link_to "Back to posts", posts_path, class:"btn btn-outline-secondary  mx-2", type:"button"  if request.parameters['controller'] == "posts" && request.parameters['action'] == "show" %>
+        <%= link_to "Back to posts", root_path, class:"btn btn-outline-secondary  mx-2", type:"button"  if request.parameters['controller'] == "home" && request.parameters['action'] == "show" %>
+        <%= link_to "Edit this post", edit_post_path(post), type:"button", class:"btn btn-outline-warning  mx-2" if current_user.present? && post.user == current_user%>
+        <%= button_to "Destroy this post", post, method: :delete, class:"btn btn-outline-danger  mx-2", type:"button" if current_user.present? && post.user == current_user %>
+      </div>
     </div>
-    <div class="card-body">
-      <p class="" >
-        <span class="bg-dark"><%= post.content %> </span>
-      </p>
-      <p>
-        <strong> Author:</strong>
-        <%= post.user.name %>
-      </p>
-
-      <strong> <%= pluralize post.comments.count, "comment" %></strong>
-      <p>
-        Published: <%= time_tag post.created_at, "data-local": "time-ago" %> <% if post.created_at != post.updated_at %>/ Updated: <%= time_tag post.updated_at, "data-local": "time-ago" %> <% end %>
-      </p>
-    </div>
-
-
-    <div class="card-footer d-flex ">
-      <%= link_to "Show this post", post , class:"btn btn-outline-success mx-2", type:"button" if request.parameters['action'] == "index" %>
-      <%= link_to "Back to posts", posts_path, class:"btn btn-outline-secondary  mx-2", type:"button"  if request.parameters['controller'] == "posts" && request.parameters['action'] == "show" %>
-      <%= link_to "Back to posts", root_path, class:"btn btn-outline-secondary  mx-2", type:"button"  if request.parameters['controller'] == "home" && request.parameters['action'] == "show" %>
-      <%= link_to "Edit this post", edit_post_path(post), type:"button", class:"btn btn-outline-warning  mx-2" if current_user.present? && post.user == current_user%>
-      <%= button_to "Destroy this post", post, method: :delete, class:"btn btn-outline-danger  mx-2", type:"button" if current_user.present? && post.user == current_user %>
-
-    </div>
-
-
   </div>
-</div>
-
 <% end %>
-
